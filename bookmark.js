@@ -1,36 +1,36 @@
 // Listen for form submit
 document.getElementById('myForm').addEventListener('submit', saveBookmark);
 
-// Save Bookmark
+// Save Bookmark                     
 function saveBookmark(e){
   // Get form values
-  var siteName =document.getElementById('siteName').value;
-  var siteUrl =document.getElementById('siteUrl').value;
+  var siteName =document.getElementById('siteName').value;                       
+  var siteUrl =document.getElementById('siteUrl').value;                        
 
-  if(!validateForm(siteName, siteUrl)){
-    return false;
-  }
+  if(!validateForm(siteName, siteUrl)){                                     
+    return false;                                 
+  }                                               
 
-  var bookmark = {
-    name: siteName,
-    url: siteUrl
-  }
-
-  // Test if bookmarks is null
-  if(localStorage.getItem('bookmarks') === null){
-    // Init array
-    var bookmarks = [];
-    // Add to array
-    bookmarks.push(bookmark);
-    // Set to localStorage
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-  } else {
-    // Get bookmarks from localStorage
-    var bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
-    // Add bookmark to array
-    bookmarks.push(bookmark);
-    // Re-set back to localStorage
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  var bookmark = {                                                              
+    name: siteName,                                
+    url: siteUrl                                    
+  }                                              
+                                                 
+  // Test if bookmarks is null                     
+  if(localStorage.getItem('bookmarks') === null){      
+    // Init array                                  
+    var bookmarks = [];                            
+    // Add to array                                 
+    bookmarks.push(bookmark);                      
+    // Set to localStorage                         
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));  
+  } else { 
+    // Get bookmarks from localStorage                                      
+    var bookmarks = JSON.parse(localStorage.getItem('bookmarks'));  
+    // Add bookmark to array                                       
+    bookmarks.push(bookmark);                                      
+    // Re-set back to localStorage                                 
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));   
   }
 
   // Clear form
@@ -71,12 +71,12 @@ function fetchBookmarks(){
   // Build output
   bookmarksResults.innerHTML = '';
   for(var i = 0; i < bookmarks.length; i++){
-    var name = bookmarks[i].name;
+    var name = bookmarks[i].name;                                                                                                                        
     var url = bookmarks[i].url;
 
     bookmarksResults.innerHTML += '<div class="well">'+
                                   '<h3>'+name+
-                                  ' <a class="btn btn-default" target="_blank" href="'+addhttp(url)+'">Visit</a> ' +
+                                  ' <a class="btn btn-primary" target="_blank" href="'+url+'">Visit</a> ' +
                                   ' <a onclick="deleteBookmark(\''+url+'\')" class="btn btn-danger" href="#">Delete</a> ' +
                                   '</h3>'+
                                   '</div>';
@@ -99,11 +99,4 @@ function validateForm(siteName, siteUrl){
   }
 
   return true;
-}
-
-function addhttp(url) {
-  if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
-      url = "http://" + url;
-  }
-  return url;
 }
